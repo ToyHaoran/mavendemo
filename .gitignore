@@ -1,0 +1,6 @@
+# Project exclude paths
+/datax-config-generator/target/
+/flume/target/
+/hadoop/target/
+/kafka/target/
+/spark/target/
