@@ -4,3 +4,4 @@
 /hadoop/target/
 /kafka/target/
 /spark/target/
+/.idea/
