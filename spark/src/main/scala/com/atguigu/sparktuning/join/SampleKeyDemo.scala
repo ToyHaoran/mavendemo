@@ -36,8 +36,8 @@ object SampleKeyDemo {
     val top10Key = df
       .select(keyColumn).sample(false, 0.1).rdd // 对key不放回采样
       .map(k => (k, 1)).reduceByKey(_ + _) // 统计不同key出现的次数
-      .map(k => (k._2, k._1)).sortByKey(false) // 统计的key进行排序
-      .take(10)
+      .map(k => (k._2, k._1)).sortByKey(false) // 统计的key数量进行排序(逆序)
+      .take(10)  // top10
     top10Key
   }
 

@@ -16,6 +16,7 @@ public class Test01 {
         // 1. 创建sparkContext
         JavaSparkContext sc = new ConnectUtil().getSC();
 
+
         // 2. 编写代码
         // 找出幸运数字
         JavaRDD<Integer> intRDD = sc.parallelize(Arrays.asList(4, 56, 7, 8, 1, 2));

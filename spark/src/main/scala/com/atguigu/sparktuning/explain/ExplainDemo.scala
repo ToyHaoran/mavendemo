@@ -10,7 +10,7 @@ object ExplainDemo {
   def main( args: Array[String] ): Unit = {
     val sparkConf = new SparkConf().setAppName("ExplainDemo")
 //      .setMaster("local[*]") //TODO 要打包提交集群执行，注释掉
-    val sparkSession: SparkSession = InitUtil.initSparkSession(sparkConf)
+    val ss: SparkSession = InitUtil.initSparkSession(sparkConf)
 
 
     val sqlstr =
@@ -25,24 +25,24 @@ object ExplainDemo {
       """.stripMargin
 
 
-    sparkSession.sql("use sparktuning;")
+    ss.sql("use sparktuning;")
 //    sparkSession.sql(sqlstr).show()
     //    while(true){}
 
     println("=====================================explain()-只展示物理执行计划============================================")
-    sparkSession.sql(sqlstr).explain()
+    ss.sql(sqlstr).explain()
 
     println("===============================explain(mode = \"simple\")-只展示物理执行计划=================================")
-    sparkSession.sql(sqlstr).explain(mode = "simple")
+    ss.sql(sqlstr).explain(mode = "simple")
 
     println("============================explain(mode = \"extended\")-展示逻辑和物理执行计划==============================")
-    sparkSession.sql(sqlstr).explain(mode = "extended")
+    ss.sql(sqlstr).explain(mode = "extended")
 
     println("============================explain(mode = \"codegen\")-展示可执行java代码===================================")
-    sparkSession.sql(sqlstr).explain(mode = "codegen")
+    ss.sql(sqlstr).explain(mode = "codegen")
 
     println("============================explain(mode = \"formatted\")-展示格式化的物理执行计划=============================")
-    sparkSession.sql(sqlstr).explain(mode = "formatted")
+    ss.sql(sqlstr).explain(mode = "formatted")
 
 
   }

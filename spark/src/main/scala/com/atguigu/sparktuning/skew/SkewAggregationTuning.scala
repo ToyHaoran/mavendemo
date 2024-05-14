@@ -11,13 +11,12 @@ object SkewAggregationTuning {
 
     val sparkConf = new SparkConf().setAppName("SkewAggregationTuning")
       .set("spark.sql.shuffle.partitions", "36")
-//      .setMaster("local[*]")
     val sparkSession: SparkSession = InitUtil.initSparkSession(sparkConf)
 
     sparkSession.udf.register("random_prefix", ( value: Int, num: Int ) => randomPrefixUDF(value, num))
     sparkSession.udf.register("remove_random_prefix", ( value: String ) => removeRandomPrefixUDF(value))
 
-
+    // 二次聚合
     val sql1 =
       """
         |select
@@ -48,7 +47,7 @@ object SkewAggregationTuning {
         |  courseid
       """.stripMargin
 
-
+    // 没有二次聚合
     val sql2=
       """
         |select
@@ -59,17 +58,14 @@ object SkewAggregationTuning {
       """.stripMargin
 
     sparkSession.sql(sql1).show(10000)
-
-
-//    while(true){}
   }
 
 
-  def randomPrefixUDF( value: Int, num: Int ): String = {
+  def randomPrefixUDF(value: Int, num: Int): String = {
     new Random().nextInt(num).toString + "_" + value
   }
 
-  def removeRandomPrefixUDF( value: String ): String = {
+  def removeRandomPrefixUDF(value: String): String = {
     value.toString.split("_")(1)
   }
 }

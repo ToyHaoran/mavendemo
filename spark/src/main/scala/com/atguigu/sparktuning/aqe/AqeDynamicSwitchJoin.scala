@@ -8,7 +8,8 @@ object AqeDynamicSwitchJoin {
   def main( args: Array[String] ): Unit = {
     val sparkConf = new SparkConf().setAppName("AqeDynamicSwitchJoin")
       .set("spark.sql.adaptive.enabled", "true")
-      .set("spark.sql.adaptive.localShuffleReader.enabled", "true") //在不需要进行shuffle重分区时，尝试使用本地shuffle读取器。将sort-meger join 转换为广播join
+      //在不需要进行shuffle重分区时，尝试使用本地shuffle读取器，将sort-meger join 转换为广播join
+      .set("spark.sql.adaptive.localShuffleReader.enabled", "true")
     val sparkSession: SparkSession = InitUtil.initSparkSession(sparkConf)
     switchJoinStartegies(sparkSession)
   }
